@@ -1,7 +1,7 @@
-const deslocamento: number = 7;
+const DESLOCAMENTO: number = 7;
 
 const converterUTF = (c: string): string =>
-  c !== " " ? String.fromCharCode((c.charCodeAt(0) + deslocamento) % 255) : c;
+  c !== " " ? String.fromCharCode((c.charCodeAt(0) + DESLOCAMENTO) % 255) : c;
 
 const cifrar = (msg: string): string =>
   Array.from(msg).map(converterUTF).join("");
