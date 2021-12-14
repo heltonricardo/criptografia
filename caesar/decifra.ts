@@ -1,12 +1,13 @@
 class Decifra {
-  private frequencia: object = Array(26).map((_, i) => this.codigoParaLetra(i): 0);
+  private frequencia: Map<string, number> = new Map();
 
-  public converter(c: string): string {
-    return c !== " " ? String.fromCharCode((c.charCodeAt(0) + 1) % 255) : c;
+  constructor() {
+    Array.from(new Array(26).keys()).forEach((p) => {
+      this.frequencia.set(this.codigoParaLetra(p), 0);
+    });
   }
 
-  public decifrar = (msg: string): string =>
-    Array.from(msg).map(this.converter).join("");
+  /***************************** MÉTODOS PRIVADOS *****************************/
 
   private sanitarizar(msg: string): string {
     return msg
@@ -16,23 +17,33 @@ class Decifra {
       .replace(/[^A-Z]/g, "");
   }
 
-  private letraParaCodigo(c: string): number {
-    return c.charCodeAt(0) - 65;
-  }
-
   private codigoParaLetra(n: number): string {
     return String.fromCharCode(n + 65);
   }
 
-  public resetFrequencia(): void {
-    this.frequencia = { ...this.frequencia.map((_) => 0) };
+  private getFrequenciaPorLetra(c: string): number {
+    return this.frequencia.get(c) ?? 0;
   }
 
-  public treinar(texto: string): void {
-    Array.from(this.sanitarizar(texto))
-      .map(this.letraParaCodigo)
-      .forEach((n) => ++this.frequencia[n]);
+  private incrementarFrequencia(letra: string) {
+    this.frequencia.set(letra, this.getFrequenciaPorLetra(letra) + 1);
   }
+
+  /***************************** MÉTODOS PÚBLICOS *****************************/
+
+  public treinar(texto: string): void {
+    Array.from(this.sanitarizar(texto)).forEach(
+      this.incrementarFrequencia,
+      this
+    );
+  }
+
+  public converter(c: string): string {
+    return c !== " " ? String.fromCharCode((c.charCodeAt(0) + 1) % 255) : c;
+  }
+
+  public decifrar = (msg: string): string =>
+    Array.from(msg).map(this.converter).join("");
 }
 
 const EXEMPLO: string = `O Brasil é considerado um país grande. Dessa forma,
@@ -50,4 +61,3 @@ const MENSAGEM: string =
 
 const decifra = new Decifra();
 decifra.treinar(EXEMPLO);
-
