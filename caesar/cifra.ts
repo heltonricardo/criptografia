@@ -47,8 +47,15 @@ class Cifra {
     Array.from(this.mensagemSanitarizada).map(this.converter).join("");
 }
 
-const msg: string = "A César o que é de César. Todos os caminhos levam à Roma.";
-const cifra = new Cifra(msg);
+/***************************** TESTE DO ALGORITMO *****************************/
+
+const msg_cifrada: string =
+  "A César o que é de César. Todos os caminhos levam à Roma.";
+
+const cifra: Cifra = new Cifra(msg_cifrada);
+
 console.log(cifra.getMensagemOriginal());
 console.log(cifra.getMensagemSanitarizada());
 console.log(cifra.getMensagemCifrada());
+
+/******************************************************************************/
