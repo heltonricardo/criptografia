@@ -79,13 +79,13 @@ class CifraVigenere {
 
 const chaveVigenere: string = "Esse é um teste!";
 
-const msgCifradaVigenere: string =
+const msgDecifradaVigenere: string =
   "Amazon.com will not accept returns of any desktop or notebook computer " +
   "more than 30 days after you receive the shipment.";
 
 const cifraVigenere: CifraVigenere = new CifraVigenere(
   chaveVigenere,
-  msgCifradaVigenere
+  msgDecifradaVigenere
 );
 
 console.log(cifraVigenere.getChaveOriginal());
